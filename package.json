@@ -1,18 +1,10 @@
 {
-  "name": "typescript-hello-world-demo",
-  "version": "1.0.0",
-  "description": "TypeScript Hello World Demo",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.5"
+    "lodash": "4.17.5"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.106"
+    "@types/lodash": "4.14.106",
+    "ts-node": "7.0.0",
+    "typescript": "3.0.1"
   }
 }
