@@ -1,3 +1,3 @@
 import {capitalize} from 'lodash';
 
-console.log("Hello " + capitalize("typescript") + "!");
+console.log("Hello, " + capitalize("typescript") + "!");
