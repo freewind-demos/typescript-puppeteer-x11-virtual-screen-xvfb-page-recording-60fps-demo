@@ -16,6 +16,12 @@ node hello.js
 
 It will print `Hello, TypeScript!`
 
+或者使用node-ts：
+
+```
+npx node-ts hello.ts
+```
+
 Resources
 ---------
 - tsconfig详解：<https://www.typescriptlang.org/docs/handbook/tsconfig-json.html>
