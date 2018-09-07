@@ -19,7 +19,7 @@ It will print `Hello, TypeScript!`
 或者使用node-ts：
 
 ```
-npx node-ts hello.ts
+npx ts-node hello.ts
 ```
 
 Resources
