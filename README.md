@@ -5,6 +5,12 @@ TypeScript tsconfig.json Demo
 
 ```
 npm install
+npm run tsc
+```
+
+或者使用`ts-node`:
+
+```
 npm run demo
 ```
 
