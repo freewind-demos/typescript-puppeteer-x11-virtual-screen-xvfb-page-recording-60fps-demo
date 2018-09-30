@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "demo": "ts-node hello.ts"
+  },
   "dependencies": {
     "lodash": "4.17.5"
   },

@@ -5,21 +5,7 @@ TypeScript tsconfig.json Demo
 
 ```
 npm install
-npx tsc
-```
-
-You will see `hello.js` and `hello.js.map` generated.
-
-```
-node hello.js
-```
-
-It will print `Hello, TypeScript!`
-
-或者使用node-ts：
-
-```
-npx ts-node hello.ts
+npm run demo
 ```
 
 Resources
