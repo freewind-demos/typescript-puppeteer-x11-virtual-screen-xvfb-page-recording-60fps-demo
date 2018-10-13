@@ -6,10 +6,7 @@
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "sourceMap": true,
-    "types": [
-      "lodash"
-    ]
+    "sourceMap": true
   },
   "files": [
     "hello.ts"
