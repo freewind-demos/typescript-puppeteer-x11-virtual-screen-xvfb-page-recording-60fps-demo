@@ -3,10 +3,6 @@
     "strict": true,
     "target": "es6",
     "module": "commonjs",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
