@@ -3,8 +3,8 @@
     "demo": "ts-node hello.ts"
   },
   "devDependencies": {
-    "@types/node": "8.9.5",
-    "ts-node": "7.0.1",
-    "typescript": "3.2.2"
+    "@types/node": "13.7.7",
+    "ts-node": "8.6.2",
+    "typescript": "3.8.3"
   }
 }
