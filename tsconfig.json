@@ -4,9 +4,9 @@
     "target": "es6",
     "module": "commonjs",
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "files": [
-    "hello.ts"
-  ]
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "es2015"
+    ]
+  }
 }
