@@ -33,8 +33,8 @@ export async function openPageAndRecording(url: string): Promise<void> {
 
   // not sure how to force the video autoplay, so I need to click on the "play" button
   // manually
-  const playButton = await page.$('.ytp-play-button')
-  await playButton?.click()
+  // const playButton = await page.$('.ytp-play-button')
+  // await playButton?.click()
 
   ffmpeg.ffmpeg([], [
     '-f', 'x11grab',
