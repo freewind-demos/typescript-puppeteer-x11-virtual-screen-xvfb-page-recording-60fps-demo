@@ -1,5 +1,5 @@
 import {openPageAndRecording} from './openPageAndRecording';
 
-const url = 'https://player.vimeo.com/video/242850098?autoplay=1&background=1#t=10s';
+const url = 'https://player.vimeo.com/video/182382689?autoplay=1&background=1#t=30s';
 
 openPageAndRecording(url);
