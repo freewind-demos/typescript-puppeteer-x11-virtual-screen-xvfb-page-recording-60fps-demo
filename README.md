@@ -17,6 +17,7 @@ https://github.com/prasanaworld/puppeteer-screen-recorder/issues/6#issuecomment-
 注意：
 1. 本项目使用了基于ubuntu的docker，而不是`node:16.0.0-alpine`，因为后者缺少了一些必要的库或者服务
 2. 在代码中使用了对Xvfb以及ffmpeg进行包装的npm库，它们都比较粗糙，不太好用，传参数那块容易出问题，踩了很多坑
+3. 视频autoplay功能不可靠，因为很多浏览器默认设置不自动播放视频
 
 ```
 npm install

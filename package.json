@@ -1,7 +1,7 @@
 {
   "scripts": {
     "demo": "docker build . -t xvfb && docker run -v `pwd`/output:/output xvfb",
-    "run-in-docker": "ts-node src/hello.ts"
+    "run-in-docker": "http-server ./assets -c-1 -p 9999 & ts-node src/hello.ts"
   },
   "devDependencies": {
     "@types/ffmpeg": "1.0.4",
@@ -9,6 +9,7 @@
     "@types/puppeteer": "5.4.3",
     "child_process": "1.0.2",
     "ffmpeg": "0.0.4",
+    "http-server": "0.12.3",
     "js-ffmpeg": "0.0.29",
     "ts-node": "8.6.2",
     "typescript": "4.2.4"
