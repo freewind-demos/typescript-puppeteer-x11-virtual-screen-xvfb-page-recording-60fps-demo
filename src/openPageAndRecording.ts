@@ -1,50 +1,42 @@
-const Xvfb = require('xvfb');
+import {runCommandAsync} from './runCommand';
+
 import puppeteer from 'puppeteer';
+import {wait} from './wait';
 
 const process = require('process');
 
-const ffmpeg = require('js-ffmpeg');
+const DISPLAY_NUMBER = 99;
+const SCREEN = 0;
+const WIDTH = 1024;
+const HEIGHT = 768;
 
-let displaySeed = 100;
-
-function nextDisplay(): number {
-  displaySeed += 1;
-  return displaySeed;
-}
+process.env.DISPLAY = `:${DISPLAY_NUMBER}`;
 
 export async function openPageAndRecording(url: string): Promise<void> {
-  const displayNumber = nextDisplay();
-
-  // FIXME not work?
-  process.env.DISPLAY = displayNumber;
-
-  const xvfb = new Xvfb({
-    displayNum: displayNumber,
-    // if argument contains spaces, we have to split them into multiple items
-    // ['-screen', '0 1024x768x16'] ---> ['-screen', '0', '1024x768x16']
-    // https://stackoverflow.com/questions/10941545/nodejs-child-process-spawn-does-not-work-when-one-of-the-args-has-a-space-in-it
-    xvfb_args: ['-screen', '0', '1024x768x16']
-  });
-  xvfb.startSync();
+  const asyncXvfb = runCommandAsync('Xvfb', [`:${DISPLAY_NUMBER}`, '-screen', SCREEN.toString(), `${WIDTH}x${HEIGHT}x16`], {
+    onData: console.log,
+    onError: console.log,
+    onComplete: console.log
+  })
 
   const browser = await puppeteer.launch({
     headless: false,
     args: [
       '--kiosk', // make it full screen on load
       '--no-sandbox', '--disable-dev-shm-usage',
+      '--disable-setuid-sandbox',
       '--disable-infobars' // hide the window address bars
     ],
     executablePath: process.env.CHROMIUM_PATH,
     ignoreDefaultArgs: ['--enable-automation'], // don't show the warning "Chrome is controlled by automated software"
     defaultViewport: {
-      width: 1024,
-      height: 768,
+      width: WIDTH,
+      height: HEIGHT,
     }
   });
 
   const page = await browser.newPage();
   await page.goto(url);
-
 
   await page.waitForTimeout(2000);
 
@@ -54,23 +46,30 @@ export async function openPageAndRecording(url: string): Promise<void> {
   await playButton?.click()
 
 
-  ffmpeg.ffmpeg([], [
+  const asyncFfmpeg = runCommandAsync('ffmpeg', [
     '-f', 'x11grab',
-    '-video_size', '1024x768',
+    '-video_size', `${WIDTH}x${HEIGHT}`,
     '-framerate', '60',
     // we have to put the `-i` after `-f`, otherwise ffmpeg will try to handle it as an invalid file,
     // and report error: ':99.0: Protocol not found, did you mean file::99.0?'
-    '-i', `:${displayNumber}.0`,
+    '-i', `:${DISPLAY_NUMBER}.${SCREEN}`,
     '-t', '10', // 10s
-    '-pix_fmt', 'yuv420p' // just needed for QuickTime player
-  ], `/output/video-${displayNumber}.mp4`, (progress: any) => {
-    console.log(progress);
-  }).success((json: any) => {
-    console.log(json);
-    xvfb.stopSync();
-    browser.close();
-  }).error((error: any) => {
-    console.error(error)
+    '-pix_fmt', 'yuv420p', // just needed for QuickTime player
+    '-y', // overwrite existing file
+    `/output/video.mp4`
+  ], {
+    onData: (data) => {
+      console.log(data)
+    },
+    onError: (error) => {
+      // FIXME ffmpeg will output progress information to stderr instead of stdout, not sure how to fix it
+      console.log('Error: ', error)
+    },
+    onComplete: () => {
+      asyncFfmpeg.kill();
+      browser.close();
+      asyncXvfb.kill();
+    }
   })
 
 }
